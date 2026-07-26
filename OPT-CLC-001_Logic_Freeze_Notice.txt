@@ -1,0 +1,22 @@
+====================================================================================
+                            LOGIC FREEZE NOTICE: OPT-CLC-001
+====================================================================================
+PROJECT:       Commercial Lease & Square-Footage Cost Calculator
+DOMAIN:        lease.headsup-consulting.com (or sub-route harness)
+SPECIFICATION: Version 1.0 Final
+DATE:          July 26, 2026
+STATUS:        LOCKED / FROZEN
+
+CORE DECISION:
+The mathematical model, unit conversions (sq ft / m²), lease structures (NNN, Gross, 
+Modified Gross), annual escalation schedules, and state persistence rules documented 
+above are officially FROZEN. No changes or additions to the mathematical engine 
+or calculation logic may occur during the upcoming build sprint.
+
+APPROVAL:
+- Lead Systems Architect: APPROVED & LOCKED
+- Chief Strategist: AUTHORIZED
+====================================================================================
+
+
+

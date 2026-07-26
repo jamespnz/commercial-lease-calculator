@@ -1,0 +1,4 @@
+git add .
+git commit -m "Initial release: Commercial Lease Calculator (OPT-CLC-001)"
+git push origin main
+

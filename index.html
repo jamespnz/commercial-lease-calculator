@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commercial Lease &amp; Square-Footage Cost Calculator (NNN &amp; Gross) | Studio Terminal</title>
+    <meta name="description" content="Free commercial real estate lease calculator. Compare NNN, Gross, and Modified Gross leases with annual escalation schedules and square-footage cost analysis." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Commercial Lease & Square-Footage Cost Calculator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "description": "Free commercial real estate lease calculator. Compare NNN, Gross, and Modified Gross leases with annual escalation schedules and square-footage cost analysis.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Organization", "name": "HeadsUp App Design Studio" }
+    }
+    </script>
+    <style>
+      html { scroll-behavior: smooth; }
+      body { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+      input[type="number"] { -moz-appearance: textfield; }
+      .glow-amber:focus { box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.5); }
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: #0f172a; }
+      ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 2px; }
+      ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-300 font-mono antialiased min-h-screen">
+    <!-- TOP LEADERBOARD AD -->
+    <div class="max-w-7xl mx-auto px-4 pt-4">
+      <div class="h-[90px] border border-slate-800 bg-slate-900/40 flex items-center justify-center text-slate-600 text-xs tracking-widest select-none">
+        [ADSENSE_TOP_LEADERBOARD_FIXED_CONTAINER_90PX_HEIGHT]
+      </div>
+    </div>
+
+    <!-- TERMINAL HEADER -->
+    <header class="max-w-7xl mx-auto px-4 pt-6 pb-4 border-b border-slate-800">
+      <div class="flex items-center gap-2 text-amber-400 text-xs tracking-widest mb-1">
+        <span class="inline-block w-2 h-2 bg-amber-400 animate-pulse"></span>
+        <span>SYS::COMMERCIAL-LEASE-CALCULATOR//V1.0</span>
+      </div>
+      <h1 class="text-slate-100 text-lg sm:text-xl font-bold tracking-tight">
+        Commercial Lease &amp; Square-Footage Cost Calculator
+      </h1>
+      <p class="text-slate-500 text-xs mt-1">
+        Deterministic Commercial Real Estate Occupancy Cost Engine. No tracking. Client-side execution loop.
+      </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+      <!-- INPUT + SUMMARY GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- INPUT FORM -->
+        <section class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-sm">
+          <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+            <h2 class="text-amber-400 text-xs tracking-widest">// INPUT CONTROLS</h2>
+            <button id="resetBtn" type="button" class="text-slate-500 hover:text-amber-400 text-[10px] tracking-widest border border-slate-800 hover:border-amber-500 px-2 py-1 transition-colors">RESET</button>
+          </div>
+          <form id="calcForm" class="p-4 space-y-4">
+            <!-- Property Size -->
+            <div>
+              <label for="area" class="block text-[11px] tracking-widest text-slate-400 mb-1">PROPERTY SIZE</label>
+              <input id="area" name="area" type="number" min="0" step="any" value="2500"
+                class="w-full bg-slate-950 border border-slate-800 text-slate-100 text-sm px-3 py-2 focus:outline-none focus:border-amber-500 glow-amber" />
+              <div class="mt-2 flex gap-4 text-[11px]">
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <input type="radio" name="unit" value="sqft" checked class="accent-amber-500" />
+                  <span class="text-slate-300">Square Feet (sq ft)</span>
+                </label>
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <input type="radio" name="unit" value="m2" class="accent-amber-500" />
+                  <span class="text-slate-300">Square Meters (m²)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Base Rent Rate -->
+            <div>
+              <label for="rate" class="block text-[11px] tracking-widest text-slate-400 mb-1">BASE RENT RATE</label>
+              <input id="rate" name="rate" type="number" min="0" step="0.01" value="32.00"
+                class="w-full bg-slate-950 border border-slate-800 text-slate-100 text-sm px-3 py-2 focus:outline-none focus:border-amber-500 glow-amber" />
+              <select id="rateMode" name="rateMode"
+                class="mt-2 w-full bg-slate-950 border border-slate-800 text-slate-300 text-xs px-3 py-2 focus:outline-none focus:border-amber-500">
+                <option value="per_year">$/sq ft/year</option>
+                <option value="per_month">$/sq ft/month</option>
+                <option value="flat_monthly">Flat Monthly Total ($)</option>
+              </select>
+            </div>
+
+            <!-- Lease Structure -->
+            <div>
+              <label for="structure" class="block text-[11px] tracking-widest text-slate-400 mb-1">LEASE STRUCTURE</label>
+              <select id="structure" name="structure"
+                class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-sm px-3 py-2 focus:outline-none focus:border-amber-500">
+                <option value="nnn">Triple Net (NNN)</option>
+                <option value="fsg">Full Service Gross</option>
+                <option value="modified">Modified Gross</option>
+              </select>
+            </div>
+
+            <!-- CAM -->
+            <div id="camWrap">
+              <label for="cam" class="block text-[11px] tracking-widest text-slate-400 mb-1">EST. NNN / CAM EXPENSES ($/sq ft/year)</label>
+              <input id="cam" name="cam" type="number" min="0" step="0.01" value="8.50"
+                class="w-full bg-slate-950 border border-slate-800 text-slate-100 text-sm px-3 py-2 focus:outline-none focus:border-amber-500 glow-amber disabled:opacity-40 disabled:cursor-not-allowed" />
+            </div>
+
+            <!-- Escalation -->
+            <div>
+              <label for="escalation" class="block text-[11px] tracking-widest text-slate-400 mb-1">ANNUAL RENT ESCALATION (%)</label>
+              <input id="escalation" name="escalation" type="number" step="0.1" value="3.0"
+                class="w-full bg-slate-950 border border-slate-800 text-slate-100 text-sm px-3 py-2 focus:outline-none focus:border-amber-500 glow-amber" />
+            </div>
+
+            <!-- Term -->
+            <div>
+              <label for="term" class="block text-[11px] tracking-widest text-slate-400 mb-1">LEASE TERM (YEARS)</label>
+              <input id="term" name="term" type="number" min="1" max="15" step="1" value="5"
+                class="w-full bg-slate-950 border border-slate-800 text-slate-100 text-sm px-3 py-2 focus:outline-none focus:border-amber-500 glow-amber" />
+            </div>
+          </form>
+        </section>
+
+        <!-- SUMMARY CARDS -->
+        <section class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
+          <div class="bg-slate-900 border border-slate-800 rounded-sm p-4">
+            <div class="text-[10px] tracking-widest text-slate-500 mb-2">INITIAL MONTHLY PAYMENT (YR 1)</div>
+            <div id="cardInitial" class="text-amber-400 text-2xl font-bold tabular-nums">$0.00</div>
+            <div class="text-[10px] text-slate-600 mt-1">Base + CAM / NNN, Year 1</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-sm p-4">
+            <div class="text-[10px] tracking-widest text-slate-500 mb-2">EFFECTIVE MONTHLY AVERAGE</div>
+            <div id="cardEffMonthly" class="text-slate-100 text-2xl font-bold tabular-nums">$0.00</div>
+            <div class="text-[10px] text-slate-600 mt-1">Across full lease term</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-sm p-4">
+            <div class="text-[10px] tracking-widest text-slate-500 mb-2">TOTAL OUT-OF-POCKET COST</div>
+            <div id="cardTotal" class="text-slate-100 text-2xl font-bold tabular-nums">$0.00</div>
+            <div class="text-[10px] text-slate-600 mt-1">Full lease duration</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-sm p-4">
+            <div class="text-[10px] tracking-widest text-slate-500 mb-2">EFFECTIVE ANNUAL RATE / SQ FT</div>
+            <div id="cardEffRate" class="text-slate-100 text-2xl font-bold tabular-nums">$0.00</div>
+            <div class="text-[10px] text-slate-600 mt-1">Blended over term</div>
+          </div>
+
+          <!-- ERROR BANNER -->
+          <div id="errBanner" class="hidden sm:col-span-2 bg-red-950/50 border border-red-800 text-red-400 text-xs tracking-widest px-4 py-3 rounded-sm">
+            ERR: INVALID INPUT METRIC
+          </div>
+        </section>
+      </div>
+
+      <!-- CASH FLOW SCHEDULE -->
+      <section class="bg-slate-900 border border-slate-800 rounded-sm">
+        <div class="px-4 py-3 border-b border-slate-800">
+          <h2 class="text-amber-400 text-xs tracking-widest">// ANNUAL CASH FLOW SCHEDULE</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs sm:text-sm">
+            <thead>
+              <tr class="text-slate-500 text-[10px] tracking-widest border-b border-slate-800">
+                <th class="text-left px-4 py-3 font-medium">YEAR</th>
+                <th class="text-right px-4 py-3 font-medium">BASE RENT (ANNUAL)</th>
+                <th class="text-right px-4 py-3 font-medium">CAM / NNN (ANNUAL)</th>
+                <th class="text-right px-4 py-3 font-medium">TOTAL ANNUAL COST</th>
+                <th class="text-right px-4 py-3 font-medium">MONTHLY OUT-OF-POCKET</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleBody" class="tabular-nums"></tbody>
+            <tfoot>
+              <tr id="scheduleTotalRow" class="border-t-2 border-amber-500/60 text-amber-400 font-bold tabular-nums">
+                <td class="px-4 py-3 tracking-widest text-[11px]">TOTAL</td>
+                <td id="totBase" class="text-right px-4 py-3">$0.00</td>
+                <td id="totCam" class="text-right px-4 py-3">$0.00</td>
+                <td id="totAnnual" class="text-right px-4 py-3">$0.00</td>
+                <td id="totMonthly" class="text-right px-4 py-3">$0.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- MID PAGE AD -->
+      <div class="h-[120px] sm:h-[250px] border border-slate-800 bg-slate-900/40 flex items-center justify-center text-slate-600 text-xs tracking-widest select-none">
+        [ADSENSE_MID_CONTENT_RESPONSIVE_DISPLAY_BOX]
+      </div>
+
+      <!-- EDUCATIONAL SECTION -->
+      <section class="bg-slate-900 border border-slate-800 rounded-sm p-5 sm:p-6">
+        <h2 class="text-amber-400 text-xs tracking-widest mb-4">// REFERENCE: COMMERCIAL LEASE STRUCTURES</h2>
+        <div class="space-y-4 text-sm leading-relaxed text-slate-400">
+          <p>
+            <span class="text-slate-200 font-medium">Triple Net (NNN) leases</span> are the most common structure for commercial office, retail, and industrial tenants. Under an NNN arrangement the tenant pays a base rent to the landlord plus a pro-rata share of the building's operating expenses — property taxes, insurance, and common area maintenance (CAM). These pass-throughs are typically quoted as a per-square-foot annual figure and can fluctuate year over year, so the tenant bears the risk of rising operating costs. This calculator models CAM as a stable annual figure; in practice you should review the landlord's estimated CAM reconciliation before signing.
+          </p>
+          <p>
+            <span class="text-slate-200 font-medium">Full Service Gross (FSG)</span> leases bundle nearly all operating expenses — taxes, insurance, maintenance, janitorial, and utilities — into a single quoted rent rate. The landlord absorbs cost variability, which is why FSG rates per square foot run higher than NNN base rents. FSG is common in Class A office space in competitive markets. Because the landlord carries the expense risk, FSG leases frequently include an annual escalation clause (often tied to CPI or a fixed percentage) to protect the landlord's net effective rent over a multi-year term.
+          </p>
+          <p>
+            <span class="text-slate-200 font-medium">Modified Gross</span> leases sit between NNN and FSG: the landlord covers some operating expenses (typically taxes and insurance) while the tenant pays others (often utilities, janitorial, and interior maintenance). CAM pass-throughs in a modified gross deal are usually limited to specific cost categories. The split is negotiable and varies widely by market and asset class, so always confirm in the letter of intent which expense lines you will carry before comparing a modified gross quote against an NNN or FSG alternative.
+          </p>
+          <p>
+            <span class="text-slate-200 font-medium">Rent escalation</span> is the mechanism by which landlords grow revenue over a multi-year lease without re-leasing the space. A fixed annual percentage (commonly 2.5%–3.5%) compounds the base rent each year, while CAM is typically held flat or escalated separately. The <span class="text-slate-200 font-medium">effective annual rate per square foot</span> — total out-of-pocket cost divided by the lease term and the rentable area — is the single best metric for comparing lease proposals with different structures, concessions, and term lengths on a like-for-like basis.
+          </p>
+        </div>
+      </section>
+
+      <!-- PRIVACY DISCLOSURE -->
+      <section class="bg-slate-900 border border-slate-800 rounded-sm p-5">
+        <h2 class="text-amber-400 text-xs tracking-widest mb-3">// PRIVACY &amp; EXECUTION DISCLOSURE</h2>
+        <p class="text-xs leading-relaxed text-slate-500">
+          This calculator executes entirely in your local browser. No input values, calculation results, or session state are transmitted to any server operated by HeadsUp App Design Studio. Inputs are persisted only in your browser's local storage (<code class="text-slate-400">localStorage</code>) to restore your last session on reload; clearing site data removes this information permanently. This page may display advertising served by Google AdSense, a third-party vendor. Google AdSense and its partners may use cookies to serve ads based on your prior visits to this and other websites. You may opt out of personalized advertising via Google's Ads Settings and may disable third-party vendor cookies through your browser settings. The educational content and calculation engine do not depend on or share data with any advertising vendor.
+        </p>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="max-w-7xl mx-auto px-4 py-6 mt-4 border-t border-slate-800">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] tracking-widest text-slate-600">
+        <div>© 2026 HEADSUP APP DESIGN STUDIO // ALL RIGHTS RESERVED.</div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 border border-amber-500/60 text-amber-400 px-2 py-1">
+            <span class="inline-block w-1.5 h-1.5 bg-amber-400 animate-pulse"></span>
+            STATE 1 COMPLIANT
+          </span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        'use strict';
+
+        var STORAGE_KEY = 'commercial_lease_calc_state';
+        var DEFAULTS = {
+          area: '2500',
+          unit: 'sqft',
+          rate: '32.00',
+          rateMode: 'per_year',
+          structure: 'nnn',
+          cam: '8.50',
+          escalation: '3.0',
+          term: '5',
+        };
+
+        var els = {};
+        var ids = ['area', 'rate', 'rateMode', 'structure', 'cam', 'escalation', 'term', 'camWrap',
+          'cardInitial', 'cardEffMonthly', 'cardTotal', 'cardEffRate', 'errBanner',
+          'scheduleBody', 'totBase', 'totCam', 'totAnnual', 'totMonthly', 'resetBtn', 'calcForm'];
+
+        function cacheEls() {
+          ids.forEach(function (id) { els[id] = document.getElementById(id); });
+          els.unitRadios = document.getElementsByName('unit');
+        }
+
+        function fmt(n) {
+          if (!isFinite(n)) return '—';
+          return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function readState() {
+          var unit = 'sqft';
+          for (var i = 0; i < els.unitRadios.length; i++) {
+            if (els.unitRadios[i].checked) unit = els.unitRadios[i].value;
+          }
+          return {
+            area: els.area.value,
+            unit: unit,
+            rate: els.rate.value,
+            rateMode: els.rateMode.value,
+            structure: els.structure.value,
+            cam: els.cam.value,
+            escalation: els.escalation.value,
+            term: els.term.value,
+          };
+        }
+
+        function saveState() {
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(readState())); } catch (e) {}
+        }
+
+        function restoreState() {
+          var raw = null;
+          try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+          var s = DEFAULTS;
+          if (raw) {
+            try {
+              var parsed = JSON.parse(raw);
+              if (parsed && typeof parsed === 'object') s = Object.assign({}, DEFAULTS, parsed);
+            } catch (e) {}
+          }
+          els.area.value = s.area;
+          els.rate.value = s.rate;
+          els.rateMode.value = s.rateMode;
+          els.structure.value = s.structure;
+          els.cam.value = s.cam;
+          els.escalation.value = s.escalation;
+          els.term.value = s.term;
+          for (var i = 0; i < els.unitRadios.length; i++) {
+            els.unitRadios[i].checked = (els.unitRadios[i].value === s.unit);
+          }
+        }
+
+        function applyStructureUi() {
+          var isFsg = els.structure.value === 'fsg';
+          els.cam.disabled = isFsg;
+          if (isFsg) {
+            els.cam.dataset.prev = els.cam.value;
+            els.cam.value = '0';
+          } else if (els.cam.dataset.prev && els.cam.value === '0') {
+            els.cam.value = els.cam.dataset.prev;
+          }
+        }
+
+        function num(v) {
+          var n = parseFloat(v);
+          return (isNaN(n) || !isFinite(n)) ? NaN : n;
+        }
+
+        function compute() {
+          var s = readState();
+          var areaRaw = num(s.area);
+          var rate = num(s.rate);
+          var camRate = num(s.cam);
+          var esc = num(s.escalation);
+          var term = parseInt(s.term, 10);
+
+          var invalid = [areaRaw, rate, camRate, esc, term].some(function (n) { return isNaN(n); });
+          if (areaRaw < 0 || rate < 0 || camRate < 0 || term < 1 || term > 15) invalid = true;
+
+          if (invalid) {
+            els.errBanner.classList.remove('hidden');
+            els.cardInitial.textContent = els.cardEffMonthly.textContent = els.cardTotal.textContent = els.cardEffRate.textContent = 'ERR';
+            els.scheduleBody.innerHTML = '<tr><td colspan="5" class="px-4 py-6 text-center text-red-400 tracking-widest">ERR: INVALID INPUT METRIC</td></tr>';
+            ['totBase','totCam','totAnnual','totMonthly'].forEach(function (k) { els[k].textContent = '—'; });
+            return;
+          }
+          els.errBanner.classList.add('hidden');
+
+          var areaSqFt = s.unit === 'm2' ? areaRaw * 10.763910416711 : areaRaw;
+
+          var baseRentYr1;
+          if (s.rateMode === 'per_year') baseRentYr1 = rate * areaSqFt;
+          else if (s.rateMode === 'per_month') baseRentYr1 = rate * 12 * areaSqFt;
+          else baseRentYr1 = rate * 12;
+
+          var camAnnual = (s.structure === 'nnn' || s.structure === 'modified') ? camRate * areaSqFt : 0;
+
+          var rows = [];
+          var sumBase = 0, sumCam = 0, sumTotal = 0;
+          for (var t = 1; t <= term; t++) {
+            var baseRent_t = baseRentYr1 * Math.pow(1 + esc / 100, t - 1);
+            var totalAnnual_t = baseRent_t + camAnnual;
+            var monthly_t = totalAnnual_t / 12;
+            rows.push({ year: t, base: baseRent_t, cam: camAnnual, total: totalAnnual_t, monthly: monthly_t });
+            sumBase += baseRent_t;
+            sumCam += camAnnual;
+            sumTotal += totalAnnual_t;
+          }
+
+          var totalOop = sumTotal;
+          var effMonthly = totalOop / (term * 12);
+          var effRate = totalOop / (term * areaSqFt);
+          var initialMonthly = rows.length ? rows[0].monthly : 0;
+
+          els.cardInitial.textContent = fmt(initialMonthly);
+          els.cardEffMonthly.textContent = fmt(effMonthly);
+          els.cardTotal.textContent = fmt(totalOop);
+          els.cardEffRate.textContent = fmt(effRate);
+
+          var html = '';
+          rows.forEach(function (r) {
+            html += '<tr class="border-b border-slate-800/60 text-slate-300 hover:bg-slate-800/30 transition-colors">' +
+              '<td class="px-4 py-2.5 text-slate-500">YR ' + r.year + '</td>' +
+              '<td class="text-right px-4 py-2.5">' + fmt(r.base) + '</td>' +
+              '<td class="text-right px-4 py-2.5">' + fmt(r.cam) + '</td>' +
+              '<td class="text-right px-4 py-2.5 text-slate-100">' + fmt(r.total) + '</td>' +
+              '<td class="text-right px-4 py-2.5 text-amber-400/90">' + fmt(r.monthly) + '</td>' +
+              '</tr>';
+          });
+          els.scheduleBody.innerHTML = html;
+          els.totBase.textContent = fmt(sumBase);
+          els.totCam.textContent = fmt(sumCam);
+          els.totAnnual.textContent = fmt(sumTotal);
+          els.totMonthly.textContent = fmt(sumTotal / (term * 12));
+        }
+
+        function init() {
+          cacheEls();
+          restoreState();
+          applyStructureUi();
+
+          els.calcForm.addEventListener('input', function () {
+            saveState();
+            applyStructureUi();
+            compute();
+          });
+          els.calcForm.addEventListener('change', function () {
+            saveState();
+            applyStructureUi();
+            compute();
+          });
+
+          els.resetBtn.addEventListener('click', function () {
+            try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+            els.area.value = DEFAULTS.area;
+            els.rate.value = DEFAULTS.rate;
+            els.rateMode.value = DEFAULTS.rateMode;
+            els.structure.value = DEFAULTS.structure;
+            els.cam.value = DEFAULTS.cam;
+            els.escalation.value = DEFAULTS.escalation;
+            els.term.value = DEFAULTS.term;
+            for (var i = 0; i < els.unitRadios.length; i++) {
+              els.unitRadios[i].checked = (els.unitRadios[i].value === DEFAULTS.unit);
+            }
+            applyStructureUi();
+            compute();
+          });
+
+          compute();
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+</html>

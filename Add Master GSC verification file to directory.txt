@@ -1,0 +1,16 @@
++-----------------------------------------------------------------------------------+
+| 1. ADD VERIFICATION FILE TO LOCAL ROOT DIRECTORY (NOW)                             |
+|    Place google9a93f6f686d88ddc.html alongside index.html                         |
++-----------------------------------------------------------------------------------+
+                                          |
+                                          v
++-----------------------------------------------------------------------------------+
+| 2. PUSH SINGLE COMMIT TO GITHUB (STEP 3)                                          |
+|    git add . -> git commit (Includes both index.html and verification file)       |
++-----------------------------------------------------------------------------------+
+                                          |
+                                          v
++-----------------------------------------------------------------------------------+
+| 3. LINK GITHUB TO NETLIFY & VERIFY GSC (STEP 4)                                   |
+|    Netlify builds site -> Click "Verify" in Google Search Console immediately     |
++-----------------------------------------------------------------------------------+

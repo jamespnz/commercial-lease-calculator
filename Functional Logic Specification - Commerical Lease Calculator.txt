@@ -1,0 +1,23 @@
++-----------------------------------------------------------------------------------+
+|                                  OPERATIONAL INPUTS                               |
+|  - Area / Size (sq ft or m²)                 - Lease Term (Years or Months)       |
+|  - Base Rent ($/sq ft/yr, $/sq ft/mo, $/mo) - Lease Structure (NNN, Gross, Modified)|
+|  - Escalation Rate (% per year)              - Est. NNN / CAM Expenses ($/sq ft/yr) |
++-----------------------------------------------------------------------------------+
+                                          |
+                                          v
++-----------------------------------------------------------------------------------+
+|                             DETERMINISTIC MATH ENGINE                             |
+|  1. Convert all rates to Annual Base Rent Baseline ($/yr)                         |
+|  2. Calculate Annual NNN / CAM Pass-Through Total ($/yr)                          |
+|  3. Compute Year-by-Year Escalation Schedule (Compound or Flat)                   |
+|  4. Sum Total Out-of-Pocket Rent & Effective Monthly Rate Over Full Term          |
++-----------------------------------------------------------------------------------+
+                                          |
+                                          v
++-----------------------------------------------------------------------------------+
+|                                EXPLICIT OUTPUTS                                   |
+|  - Initial Monthly Base Rent & Total Monthly Out-of-Pocket                        |
+|  - Annual Cash Flow Schedule Table (Base + CAM + Escalation per Year)             |
+|  - Total Occupancy Cost Over Full Term & Effective Cost / sq ft / yr              |
++-----------------------------------------------------------------------------------+
