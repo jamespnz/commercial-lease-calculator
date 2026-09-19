@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NNN Commercial Lease Calculator | Triple Net &amp; Expense Estimator</title>
-    <meta name="description" content="Free commercial lease &amp; NNN calculator. Calculate base rent, Triple Net (NNN) expenses, taxes, insurance, and maintenance costs per sq ft." />    <script>
+    <meta name="google-site-verification" content="O8D7o-GdMbUb9nse883Q5QtWa0xHZpqZvGmFTe0DeI4" />
+    <title>Commercial Lease Calculator: NNN, Gross & Cost Per Sq Ft</title>
+    <meta name="description" content="Free commercial real estate lease calculator. Compare Triple Net (NNN), Modified Gross, and Full Service leases. Calculate base rent, CAM, and cost per square foot instantly." />    <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -23,11 +24,10 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "NNN Commercial Lease Calculator & Triple Net Estimator",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript. Requires HTML5.",
-      "description": "Free commercial lease & NNN calculator. Calculate base rent, Triple Net (NNN) expenses, taxes, insurance, and maintenance costs per sq ft.",
+      "description": "Free commercial real estate lease calculator. Compare Triple Net (NNN), Modified Gross, and Full Service leases. Calculate base rent, CAM, and cost per square foot instantly.",
       "offers": { 
         "@type": "Offer", 
         "price": "0", 
@@ -67,7 +67,7 @@
         <span>SYS::COMMERCIAL-LEASE-CALCULATOR//V1.0</span>
       </div>
       <h1 class="text-slate-100 text-lg sm:text-xl font-bold tracking-tight">
-        NNN Commercial Lease Calculator & Triple Net Estimator
+        Commercial Lease Calculator: NNN, Gross & Cost Per Sq Ft
       </h1>
       <p class="text-slate-500 text-xs mt-1">
         Deterministic Commercial Real Estate Occupancy Cost Engine. No tracking. Client-side execution loop.
@@ -207,7 +207,104 @@
           </table>
         </div>
       </section>
+      <!-- SEMANTIC NNN FORMULA & LEASE STRUCTURE MATRIX -->
+      <section id="lease-reference-guide" class="space-y-6">
+        <!-- NNN FORMULA BREAKDOWN -->
+        <article class="bg-slate-900 border border-slate-800 rounded-sm p-5 sm:p-6">
+          <div class="flex items-center gap-2 text-amber-400 text-xs tracking-widest mb-3">
+            <span class="inline-block w-1.5 h-1.5 bg-amber-400"></span>
+            <h2>// FORMULA: TRIPLE NET (NNN) LEASE OCCUPANCY COST</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
+            Under a Triple Net (NNN) commercial lease, the tenant pays net base rent plus all three standard operating cost categories (taxes, insurance, and maintenance).
+          </p>
 
+          <!-- Raw Crawlable Formula Container -->
+          <div class="bg-slate-950 border border-slate-800 rounded p-4 mb-4 text-center font-mono text-xs sm:text-sm font-semibold text-amber-400 overflow-x-auto tracking-wide">
+            Total Annual Cost = Base Rent + Property Taxes + Building Insurance + CAM
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-400">
+            <div class="bg-slate-950 p-3 rounded border border-slate-800/80">
+              <span class="font-bold text-slate-200 block mb-1">Base Rent:</span>
+              Contracted base rate: <code class="text-amber-400/90 font-mono">Rate/Sq Ft &times; Rentable Area (Sq Ft)</code>.
+            </div>
+            <div class="bg-slate-950 p-3 rounded border border-slate-800/80">
+              <span class="font-bold text-slate-200 block mb-1">Net 1 &mdash; Real Estate Taxes:</span>
+              Tenant pro-rata share of municipal property assessments and taxes.
+            </div>
+            <div class="bg-slate-950 p-3 rounded border border-slate-800/80">
+              <span class="font-bold text-slate-200 block mb-1">Net 2 &mdash; Building Insurance:</span>
+              Pro-rata casualty, liability, and hazard property insurance premiums.
+            </div>
+            <div class="bg-slate-950 p-3 rounded border border-slate-800/80">
+              <span class="font-bold text-slate-200 block mb-1">Net 3 &mdash; CAM Expenses:</span>
+              Common Area Maintenance (janitorial, parking lots, HVAC maintenance, utilities).
+            </div>
+          </div>
+        </article>
+
+        <!-- DIRECT COMPARISON TABLE -->
+        <article class="bg-slate-900 border border-slate-800 rounded-sm p-5 sm:p-6">
+          <div class="flex items-center gap-2 text-amber-400 text-xs tracking-widest mb-3">
+            <span class="inline-block w-1.5 h-1.5 bg-amber-400"></span>
+            <h2>// EXPENSE RESPONSIBILITY MATRIX BY LEASE TYPE</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="text-slate-500 text-[10px] tracking-widest border-b border-slate-800">
+                  <th scope="col" class="py-3 px-3 font-medium">EXPENSE CATEGORY</th>
+                  <th scope="col" class="py-3 px-3 font-medium text-amber-400/90">TRIPLE NET (NNN)</th>
+                  <th scope="col" class="py-3 px-3 font-medium">MODIFIED GROSS</th>
+                  <th scope="col" class="py-3 px-3 font-medium">FULL SERVICE GROSS</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                <tr class="hover:bg-slate-800/30 transition-colors">
+                  <th scope="row" class="py-3 px-3 font-mono font-medium text-slate-200">Base Rent</th>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition-colors">
+                  <th scope="row" class="py-3 px-3 font-mono font-medium text-slate-200">Property Taxes</th>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-slate-400">Negotiated / Split</td>
+                  <td class="py-3 px-3 text-slate-500">Landlord</td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition-colors">
+                  <th scope="row" class="py-3 px-3 font-mono font-medium text-slate-200">Building Insurance</th>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-slate-400">Negotiated / Split</td>
+                  <td class="py-3 px-3 text-slate-500">Landlord</td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition-colors">
+                  <th scope="row" class="py-3 px-3 font-mono font-medium text-slate-200">Common Area Maint. (CAM)</th>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-slate-400">Shared / Capped</td>
+                  <td class="py-3 px-3 text-slate-500">Landlord</td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition-colors">
+                  <th scope="row" class="py-3 px-3 font-mono font-medium text-slate-200">Tenant Utilities & Janitorial</th>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-amber-400 font-semibold">Tenant</td>
+                  <td class="py-3 px-3 text-slate-500">Landlord</td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition-colors">
+                  <th scope="row" class="py-3 px-3 font-mono font-medium text-slate-200">Roof & Structural CapEx</th>
+                  <td class="py-3 px-3 text-slate-500">Landlord*</td>
+                  <td class="py-3 px-3 text-slate-500">Landlord</td>
+                  <td class="py-3 px-3 text-slate-500">Landlord</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-[10px] text-slate-500 mt-3 font-mono">
+            *Note: Under an Absolute Net (Bondable NNN) agreement, tenant assumes full responsibility for all capital replacements and structural integrity.
+          </div>
+        </article>
+      </section>
       <!-- MID PAGE AD -->
       <div class="h-[120px] sm:h-[250px] border border-slate-800 bg-slate-900/40 flex items-center justify-center text-slate-600 text-xs tracking-widest select-none">
         [ADSENSE_MID_CONTENT_RESPONSIVE_DISPLAY_BOX]
